@@ -94,6 +94,6 @@ P.addEventListener('keydown',e=>{if(e.key==='Escape'&&S.ov){e.preventDefault();c
 P.addEventListener('input',e=>{const id=e.target.id,v=e.target.value;if(id==='rg')$('#kv').textContent=v+' kg';else if(id==='cn')S.contact.name=v;else if(id==='cp')S.contact.phone=v;else if(id==='ca')S.contact.addr=v;else if(id==='ok')S.out.kg=Math.max(0,+v||0);else if(id==='ts'){S.q=v;$('#tl').innerHTML=TWN()}});
 P.addEventListener('change',e=>{if(e.target.id==='hw')S.hw=e.target.value;if(e.target.id==='cam'&&e.target.files[0]){S.photo=URL.createObjectURL(e.target.files[0]);e.target.value='';R_()}});
 function demo(k){S.role='fish';tm.forEach(clearTimeout);if(k==='agent'){S.r=E();S.need=false;S.edit='';S.prov=[];S.chat=[];S.btn=false;S.on=true;S.scr='agent';return R_()}if(k==='home'){S.scr='home';S.r=E();S.need=false;S.edit='';S.prov=[]}else{S.r={crop:'Tilapia',qty:50,loc:'Mercedes',needs:['Ice','Transport','Buyer'],when:'Today'};S.need=true;if(k==='ask'){S.edit='qty';S.scr='ask'}else{S.edit='';go(true);return}}R_()}
-$('.tg').addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(!b)return;if(b.dataset.s==='guide'){S.scr='home';S.ov='guide';S.gs=0;return R_()}demo(b.dataset.s)});
+const tg=$('.tg');tg&&tg.addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(!b)return;if(b.dataset.s==='guide'){S.scr='home';S.ov='guide';S.gs=0;return R_()}demo(b.dataset.s)});
 if(!S.seen){S.ov='guide';S.gs=0}
 R_();

@@ -1,43 +1,37 @@
-/* STATE: helpers, app state, saved draft, language */
-
-const $ = (s) => document.querySelector(s),
-  esc = (s) =>
-    String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
-
-const E = () => ({ crop: "", qty: 0, loc: "", needs: [], when: "" });
-
-const S = {
-  scr: "home",
-  hist: [],
-  on: true,
-  tl: false,
-  role: "",
-  helper: false,
-  hw: "Family or friend",
-  consent: false,
-  req: E(),
-  chat: [],
-  ask: "",
-  saved: false,
-  st: 0,
-  prov: [],
-  shared: 0,
-  sheet: null,
-  res: "",
-  oq: 0,
-  sp: "none",
-  tips: {},
-  tr: "",
-  pv: "ok",
-  pvDone: 0,
-};
-
-try {
-  const d = localStorage.getItem("fresh-draft");
-  if (d) {
-    S.req = JSON.parse(d);
-    S.saved = true;
-  }
-} catch (e) {}
-
-const T = (a, b) => (S.tl ? b : a);
+const $=s=>document.querySelector(s),R=document.documentElement,P=$('.phone');
+const E=()=>({crop:'',qty:0,loc:'',needs:[],when:''});
+const S={ts:'n',hc:false,ov:'',gs:0,q:'',near:null,nst:'',warn:[],heard:null,undo:null,seen:false,ovPrev:'',ovKey:'',scr:'home',role:'',on:true,tl:true,helper:false,consent:false,hw:'Family or friend',saved:false,need:false,msg:'',edit:'',typing:false,dock:false,photo:'',contact:{name:'',phone:'',addr:'',shared:false},cf:-1,out:{res:'',kg:0,saved:false},chat:[],btn:false,listening:false,rec:null,r:E(),prov:[],pv:''};
+const T=(a,b)=>S.tl?b:a;
+const IC={back:'<path d="M15 5l-7 7 7 7"/>',arrow:'<path d="M9 5l7 7-7 7"/>',mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',kb:'<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M7 14h10"/>',send:'<path d="M4 12l16-8-6 16-3-6z"/>',req:'<path d="M5 6h14M5 12h14M5 18h9"/>',match:'<path d="M4 12l5 5L20 6"/>',tips:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/>',store:'<path d="M4 9l1-5h14l1 5M4 9v11h16V9M4 9a3 3 0 0 0 5.3 1.9A3 3 0 0 0 15 11a3 3 0 0 0 5-2"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',sig:'<path d="M5 19v-4M10 19v-8M15 19V7M20 19V3"/>',ice:'<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9"/>',truck:'<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>',buyer:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',proc:'<path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',cam:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',minus:'<path d="M5 12h14"/>',plus:'<path d="M5 12h14M12 5v14"/>',spark:'<path d="M12 3l2.2 6.3L21 12l-6.8 2.7L12 21l-2.2-6.3L3 12l6.8-2.7z"/>'};
+const PI={Ice:'ice',Transport:'truck',Buyer:'buyer',Processing:'proc'};
+const ic=k=>`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${IC[k]}</svg>`;
+const PL=['Daet','Mercedes','Labo','Paracale','Jose Panganiban','Vinzons','Talisay','Basud','San Vicente','Santa Elena','Capalonga'];
+const PV={Ice:['Ice supplier A','₱350 estimate','2:30 PM'],Transport:['Transport B','₱250 per trip','3:00 PM'],Buyer:['Buyer C','₱45 per kg','4:00 PM'],Processing:['Processor D','₱20 per kg','Tomorrow']};
+const NL={Ice:'Yelo',Transport:'Transport',Buyer:'Mamimili',Processing:'Proseso'},WL={Today:'Ngayon',Tomorrow:'Bukas','This week':'Linggong ito'};
+const TIPS={fish:[['Keep fish in the shade','Ilayo sa direktang araw.'],['Layer fish with ice','Hayaang tumulo ang tubig ng natunaw na yelo.'],['Do not overload boxes','Ang mabigat na patong ay nakakasira ng isda.'],['Rinse with clean water','Panatilihing malinis ang gamit at kahon.']],farm:[['Harvest in cool hours','Anihin sa malamig na oras.'],['Use ventilated crates','Huwag punuin o patungan nang mataas.'],['Sort out damaged produce','Ihiwalay ang may pasa.'],['Keep produce dry','Takpan sa ulan, ilayo sa basang lupa.']]};
+function interpret(t){const x=t.toLowerCase(),r=S.r,k=x.match(/(\d+)\s*(kg|kilo)/);if(k)r.qty=+k[1];
+ PL.forEach(p=>{if(x.includes(p.toLowerCase()))r.loc=p});
+ [['tilapia','Tilapia'],['bangus','Bangus'],['tuna','Tuna'],['pinya|pineapple','Pineapple'],['kamatis|tomato','Tomato'],['saging|banana','Banana'],['gulay|vegetable','Vegetables'],['isda|fish','Other fish']].some(([a,b])=>new RegExp(a).test(x)&&(r.crop=b));
+ [['yelo|ice','Ice'],['transport|truck|hatid','Transport'],['buyer|mamimili|bibili|ibenta','Buyer'],['proces','Processing']].forEach(([a,b])=>{if(new RegExp(a).test(x)&&!r.needs.includes(b))r.needs.push(b)});
+ if(r.needs.length)S.need=true;
+ if(/bukas|tomorrow/.test(x))r.when='Tomorrow';else if(/ngayon|today|hapon/.test(x))r.when='Today'}
+const nq=()=>{const r=S.r;return !r.crop?'crop':!r.qty?'qty':!r.loc?'loc':!S.need?'needs':!r.when?'when':null};
+const QT={crop:['What do you have?','Ano ang mayroon ka?'],qty:['How heavy is it?','Gaano kabigat?'],loc:['Which town are you in?','Saang bayan ka?'],needs:['What help do you need?','Anong tulong ang kailangan?'],when:['When do you need it?','Kailan mo kailangan?']};
+const rc=rows=>`<ul class="rl">${rows.map(([l,v,k])=>{const x=`<span class="k">${l}</span><span class="d"></span><span class="v">${v||T('Tap to add','I-tap para idagdag')}</span>`;return `<li>${k?`<button class="r${v?'':' e'}" data-a="edit" data-k="${k}">${x}</button>`:`<div class="r">${x}</div>`}</li>`}).join('')}</ul>`;
+const WM='<div class="wm hd" aria-hidden="true">FRESHCISION</div>';
+const tags=()=>{const r=S.r,n=[r.crop,r.qty,r.loc,S.need,r.when].filter(Boolean).length;
+ return `<div class="slip"><div class="sh"><b class="hd">${T('Request slip','Slip ng request')}</b><span>No. 0147</span></div>${rc([[T('Product','Produkto'),r.crop,'crop'],[T('Weight','Bigat'),r.qty&&r.qty+' kg','qty'],[T('Town','Bayan'),r.loc,'loc'],[T('Help','Tulong'),S.need&&r.needs.map(x=>S.tl?NL[x]:x).join(', '),'needs'],[T('When','Kailan'),r.when&&(S.tl?WL[r.when]:r.when),'when'],...(S.photo?[[T('Photo','Larawan'),T('Added','Meron')]]:[])])}<div class="rf"><span>${T('Filled','Napunan')}</span><span>${n}/5</span></div>${S.helper&&S.consent?`<p class="fine" style="margin-top:8px">${T('Prepared by','Inihanda ni')} ${S.hw}, ${T('with the owner’s permission','may pahintulot ng may-ari')}</p>`:''}${WM}</div>`};
+const H=t=>{const m=t.match(/(\d+):(\d+) PM/);return m?+m[1]+m[2]/60:null};
+const SEA=`<svg viewBox="0 0 400 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B3F66"/><stop offset=".7" stop-color="#5FA8C8"/><stop offset="1" stop-color="#F7D774"/></linearGradient></defs><rect width="400" height="150" fill="url(#sk)"/><circle cx="300" cy="148" r="36" fill="#FFE9A8"/><rect y="150" width="400" height="290" fill="#0E4F7A"/><path d="M0 170Q50 160 100 170T200 170T300 170T400 170V190H0Z" fill="#14659A"/><path d="M0 205Q50 195 100 205T200 205T300 205T400 205" fill="none" stroke="#7DBBD6" stroke-width="3" opacity=".6"/><path d="M0 238Q50 228 100 238T200 238T300 238T400 238" fill="none" stroke="#7DBBD6" stroke-width="3" opacity=".5"/><g fill="#08202D"><path d="M70 190Q120 208 180 190L170 200Q120 214 80 200Z"/><rect x="118" y="160" width="3" height="32"/><rect x="40" y="194" width="170" height="3"/><ellipse cx="42" cy="197" rx="12" ry="3"/><ellipse cx="208" cy="197" rx="12" ry="3"/></g><circle cx="120" cy="158" r="18" fill="#F7C948" opacity=".3"/><circle cx="120" cy="158" r="8" fill="#F7C948"/></svg>`,LAND=`<svg viewBox="0 0 400 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="440" fill="#2F6B2B"/><path d="M0 230Q100 215 200 228T400 205V440H0Z" fill="#86B93A"/><path d="M0 270Q110 250 220 268T400 245V440H0Z" fill="#62A02F"/><path d="M0 320Q120 298 240 316T400 292V440H0Z" fill="#478A2A"/><path d="M0 375Q130 352 260 372T400 348V440H0Z" fill="#2F6B2B"/><g fill="none" stroke="#B7DB6A" stroke-width="2" stroke-dasharray="2 8"><path d="M0 252Q110 232 220 250T400 227"/><path d="M0 298Q120 276 240 294T400 270"/><path d="M0 350Q130 328 260 348T400 324"/></g><path d="M335 330Q345 295 330 258" fill="none" stroke="#3A2A14" stroke-width="6" stroke-linecap="round"/><g fill="none" stroke="#1E4D1B" stroke-width="5" stroke-linecap="round"><path d="M330 258Q305 244 284 256"/><path d="M330 258Q310 232 288 234"/><path d="M330 258Q355 240 376 254"/><path d="M330 258Q350 230 372 232"/><path d="M330 258Q331 236 326 218"/></g></svg>`;
+let tm=[];
+const photoBlock=()=>S.photo?`<div class="ph"><img src="${S.photo}" alt="${T('Your product photo','Larawan ng produkto mo')}"><div><b>${T('Photo added','May larawan na')}</b><br><button class="ghost" data-a="rmphoto">${T('Remove','Alisin')}</button></div></div><p class="fine">${T('A photo is not a freshness check.','Hindi ito pagsusuri kung sariwa.')}</p>`:`<button class="opt dash" data-a="cam">${ic('cam')}${T('Add a photo (optional)','Magdagdag ng larawan (opsyonal)')}</button>`;
+const CB=(i,name)=>{const c=S.contact;
+ if(c.shared)return `<p class="fine">${T('Shared with ','Naibahagi kay ')}${esc(name)}: ${esc([c.name,c.phone,c.addr].filter(Boolean).join(' · '))}</p>`;
+ if(S.cf!==i)return `<button class="opt dash" data-a="cf" data-i="${i}">${ic('buyer')}${T('Share my contact (optional)','Ibahagi ang contact ko (opsyonal)')}</button>`;
+ const f=(id,ty,l,v)=>`<input class="t" id="${id}" type="${ty}" aria-label="${l}" placeholder="${l}" value="${esc(v)}">`;
+ return `<div class="cf"><p class="fine">${T('Only ','Si ')}${esc(name)}${T(' will see this.',' lang ang makakakita nito.')}</p>${f('cn','text',T('Your name','Pangalan mo'),c.name)}${f('cp','tel',T('Phone number','Numero ng telepono'),c.phone)}${f('ca','text',T('Where to pick up','Saan kukunin'),c.addr)}<button class="opt" data-a="cshare">${ic('send')}${T('Share','Ibahagi')}</button><button class="ghost" data-a="cskip" style="justify-self:center">${T('Later','Mamaya')}</button></div>`};
+const OUT=()=>{const o=S.out,LB={Done:T('Completed','Natapos'),Part:T('Partly completed','Bahagyang natapos'),No:T('Not completed','Hindi natapos')};
+ if(o.saved)return `<div class="pc done"><div class="pt"><span class="pi">${ic('match')}</span><div><b>${T('Result saved','Naitala na ang resulta')}</b><small>${LB[o.res]} · ${o.kg} kg</small></div></div></div>`;
+ return `<div class="pc"><div class="pt"><span class="pi">${ic('tips')}</span><div><b>${T('How did it go?','Kumusta ang resulta?')}</b><small>${T('Tell us after the service.','Sabihin pagkatapos ng serbisyo.')}</small></div></div><div class="g1">${Object.keys(LB).map(k=>`<button class="opt" data-a="res" data-v="${k}" aria-pressed="${o.res===k}"><span class="bx">${o.res===k?'✓':''}</span>${LB[k]}</button>`).join('')}</div><div class="fine" style="font-weight:700">${T('Kilos sold or saved','Ilang kilo ang nabenta o na-save')}</div><div class="stp"><button class="sq" data-a="kg" data-v="-5" aria-label="−5">${ic('minus')}</button><input class="t" id="ok" type="number" inputmode="numeric" min="0" value="${o.kg}" aria-label="kg"><button class="sq" data-a="kg" data-v="5" aria-label="+5">${ic('plus')}</button></div><button class="opt" data-a="saveout"${o.res?'':' disabled'}>${T('Save result','I-save ang resulta')}</button></div>`};
+const mkdk=()=>{const n=[S.r.crop,S.r.qty,S.r.loc,S.need,S.r.when].filter(Boolean).length;return `<button class="dk" data-a="dock" aria-expanded="${S.dock}"><b class="hd">${T('Your request','Request mo')}</b><span class="sm">${[S.r.crop,S.r.qty&&S.r.qty+' kg',S.r.loc].filter(Boolean).join(' · ')||T('Empty','Wala pa')}</span><span class="dn">${n}/5</span><span aria-hidden="true">${S.dock?'▼':'▲'}</span></button>${S.dock?`<div class="dbody">${tags()}</div>`:''}`};
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));

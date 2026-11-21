@@ -49,6 +49,7 @@ const sopt=(a,v,l,on)=>`<button class="opt" data-a="${a}" data-v="${v}" aria-pre
 const CFG=()=>`<div class="bk" data-a="ovx"></div><div class="sheet" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="ct"><div class="shd"><b class="hd" id="ct">${T('Settings','Mga setting')}</b><button class="mini" data-a="ovx">${T('Close','Isara')}</button></div>
 <div class="grp"><div class="gl">${ic('globe')}${T('Language','Wika')}</div><div class="g2">${sopt('setlang','fil','Filipino',S.tl)}${sopt('setlang','en','English',!S.tl)}</div></div>
 <div class="grp"><div class="gl"><b aria-hidden="true">Aa</b>${T('Text size','Laki ng teksto')}</div><div class="g2">${sopt('ts','n','Normal',S.ts==='n')}${sopt('ts','l',T('Large','Malaki'),S.ts==='l')}</div></div>
+<div class="grp"><div class="gl">${ic('help')}${T('Help','Tulong')}</div><button class="opt" data-a="guide">${ic('help')}${T('How do I use this?','Paano ito gamitin?')}</button></div>
 <button class="go" data-a="ovx">${T('Done','Tapos na')}</button></div>`;
 
 /* Unang-beses na gabay: Pumili → Sabihin → Hintayin ang sagot */

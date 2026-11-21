@@ -1,5 +1,5 @@
 /* ===== v2 additions ===== */
-Object.assign(IC,{clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',msg:'<path d="M4 5h16v11H9l-5 4z"/>',cfg:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/>',pin:'<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',search:'<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>',warn:'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/>',undo:'<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>'});
+Object.assign(IC,{phone:'<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',msg:'<path d="M4 5h16v11H9l-5 4z"/>',cfg:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/>',pin:'<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',search:'<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>',warn:'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/>',undo:'<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/>'});
 
 /* Preferences (wika, laki ng teksto, contrast, nakita na ang gabay) */
 try{const p=JSON.parse(localStorage.getItem('fc_prefs')||'{}');if('tl'in p)S.tl=!!p.tl;if(p.ts==='l')S.ts='l';S.seen=!!p.seen}catch(e){}
@@ -22,7 +22,12 @@ function locate(){if(!navigator.geolocation){S.nst='err';return R_()}S.nst='busy
 /* Status: kulay + icon + salita */
 const SB={w:['clock','sw',()=>T('Waiting','Hinihintay')],ok:['msg','sy',()=>T('Replied','Sumagot')],acc:['match','sg',()=>T('Accepted','Tinanggap')]};
 const badge=s=>{const[i,c,l]=SB[s];return `<span class="sb ${c}">${ic(i)}${l()}</span>`};
-const card=(p,i,L,AR)=>`<div class="pc${p.s==='acc'?' done':''}" data-s="${p.s}"><div class="pt"><span class="pi">${ic(PI[p.n])}</span><div><b>${L[p.n]}</b><small>${PV[p.n][0]} · ${PV[p.n][1]}</small></div></div><div class="pb">${badge(p.s)}${p.s==='w'?`<div class="skl" aria-hidden="true"><i></i><i></i></div>`:`<span class="arr">${AR(p.n)}</span>`+(p.s==='ok'?`<button class="opt" data-a="acc" data-i="${i}">${ic('match')}${T('Accept','Tanggapin')}</button>`:CB(i,PV[p.n][0]))}</div></div>`;
+const card=(p,i,L,AR)=>`<div class="pc${p.s==='acc'?' done':''}${p.fresh?' arrive':''}${S.fresh===i?' fresh':''}" data-s="${p.s}"><div class="pt"><span class="pi">${ic(PI[p.n])}</span><div><b>${L[p.n]}</b><small>${PV[p.n][0]} · ${PV[p.n][1]}</small></div></div><div class="pb">${badge(p.s)}${p.s==='w'?`<div class="skl" aria-hidden="true"><i></i><i></i></div>`:`<span class="arr">${AR(p.n)}</span>`+(p.s==='ok'?`<button class="opt" data-a="acc" data-i="${i}">${ic('match')}${T('Accept','Tanggapin')}</button>`:CB(i,PV[p.n][0]))}</div></div>`;
+
+/* Lumilipad na slip (sent: pataas, saved: pababa sa phone) */
+const SLIPI=c=>`<svg class="slipi ${c}" viewBox="0 0 60 76" aria-hidden="true"><path d="M6 4h48v68l-6-5-6 5-6-5-6 5-6-5-6 5-6-5z" style="fill:var(--cell);stroke:var(--ink)" stroke-width="3" stroke-linejoin="round"/><path d="M14 20h32M14 32h32M14 44h22" style="stroke:var(--mute)" stroke-width="3" stroke-linecap="round" fill="none"/></svg>`;
+/* Kumikislap ang Sagot sa navigation kahit hindi naka-render ang buong screen */
+function navFlash(){const n=S.prov.filter(p=>p.s==='ok').length,b=$('#nav [data-v="match"]');if(!b)return;const s=b.querySelector('span');if(s)s.textContent=T('Replies','Sagot')+(n?' ('+n+')':'');b.classList.remove('flash');void b.offsetWidth;b.classList.add('flash')}
 
 /* Buong screen ng kumpirmasyon */
 const BIGCK=(bg,fg)=>`<svg class="bigck" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" style="fill:${bg}"/><path class="ck" d="M34 62l18 18 34-38" pathLength="1" fill="none" style="stroke:${fg}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg>`;

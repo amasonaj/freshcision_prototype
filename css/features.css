@@ -500,3 +500,588 @@
     stroke-dashoffset: 0
   }
 }
+
+/* Selyo: Kaya ko (berde) / Hindi kaya (pula) */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px 4px 10px;
+  border-radius: 6px;
+  font-size: calc(30px*var(--fs));
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  transform-origin: center;
+  animation: thud .5s cubic-bezier(.2, .9, .3, 1) both
+}
+
+.stamp .ic {
+  width: 30px;
+  height: 30px;
+  stroke-width: 3.4
+}
+
+.stamp.y {
+  color: #2F6B2B;
+  border-color: #2F6B2B;
+  background: rgba(47, 107, 43, .08)
+}
+
+.stamp.n {
+  color: #B3261E;
+  border-color: #B3261E;
+  background: rgba(179, 38, 30, .08)
+}
+
+@media(prefers-color-scheme:dark) {
+  :root:not([data-theme="light"]) .stamp.y {
+    color: #8FD16F;
+    border-color: #8FD16F
+  }
+
+  :root:not([data-theme="light"]) .stamp.n {
+    color: #FF8F86;
+    border-color: #FF8F86
+  }
+}
+
+:root[data-theme="dark"] .stamp.y {
+  color: #8FD16F;
+  border-color: #8FD16F
+}
+
+:root[data-theme="dark"] .stamp.n {
+  color: #FF8F86;
+  border-color: #FF8F86
+}
+
+/* Bumagsak na parang selyo: malaki at malabo, tapos tumama at bahagyang tumalbog */
+@keyframes thud {
+  0% {
+    transform: rotate(-16deg) scale(2.4);
+    opacity: 0
+  }
+
+  55% {
+    transform: rotate(-5deg) scale(.92);
+    opacity: 1
+  }
+
+  75% {
+    transform: rotate(-7deg) scale(1.06)
+  }
+
+  100% {
+    transform: rotate(-6deg) scale(1);
+    opacity: 1
+  }
+}
+
+/* Bahagyang yumuyuko ang slip sa pagtama ng selyo */
+.slip.hit {
+  animation: bump .3s .22s ease-out
+}
+
+@keyframes bump {
+  40% {
+    transform: translateY(3px) scale(.995)
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+  .stamp,
+  .slip.hit {
+    animation: none
+  }
+}
+
+/* ===== Mga animation ===== */
+
+/* 1. Home: umaalon ang dagat, umuugoy ang bangka, sumasayaw ang niyog at palay */
+.boat {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bob 4.5s ease-in-out infinite
+}
+
+.glow {
+  animation: glowp 2.6s ease-in-out infinite
+}
+
+.wv1 {
+  animation: wv-y 5s ease-in-out infinite alternate
+}
+
+.wv2 {
+  animation: wv-x 6s ease-in-out infinite alternate
+}
+
+.wv3 {
+  animation: wv-x 7.5s ease-in-out infinite alternate-reverse
+}
+
+.palm {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sway 5s ease-in-out infinite alternate
+}
+
+.fr {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+  animation: flutter 2.8s ease-in-out infinite alternate
+}
+
+.rice path {
+  animation: drift 3.2s linear infinite
+}
+
+@keyframes bob {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg)
+  }
+
+  50% {
+    transform: translateY(-4px) rotate(2deg)
+  }
+}
+
+@keyframes glowp {
+
+  0%,
+  100% {
+    opacity: .25
+  }
+
+  50% {
+    opacity: .6
+  }
+}
+
+@keyframes wv-y {
+  to {
+    transform: translateY(4px)
+  }
+}
+
+@keyframes wv-x {
+  from {
+    transform: translateX(-7px)
+  }
+
+  to {
+    transform: translateX(7px)
+  }
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-1.5deg)
+  }
+
+  to {
+    transform: rotate(1.5deg)
+  }
+}
+
+@keyframes flutter {
+  from {
+    transform: rotate(-3deg)
+  }
+
+  to {
+    transform: rotate(3deg)
+  }
+}
+
+@keyframes drift {
+  to {
+    stroke-dashoffset: -10
+  }
+}
+
+/* 2 at 7. Slip na lumilipad: pataas kapag naipadala, pababa sa phone kapag naka-save */
+.ckwrap {
+  position: relative;
+  width: 132px;
+  height: 132px
+}
+
+.slipi {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 54px;
+  height: 68px;
+  margin: -34px 0 0 -27px;
+  pointer-events: none
+}
+
+.fin.sent .slipu {
+  animation: flyup 1s ease-out both
+}
+
+.fin.sent .bigck {
+  animation: pop2 .35s .75s both
+}
+
+.fin.sent .bigck .ck {
+  animation: draw .45s .95s ease-out forwards
+}
+
+.fin.sent h1,
+.fin.sent .lead,
+.fin.sent .fine {
+  animation: rise .4s 1.1s ease-out both
+}
+
+@keyframes flyup {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(.7)
+  }
+
+  15% {
+    opacity: 1;
+    transform: translateY(0) scale(1)
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateY(-120px) rotate(-6deg)
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-170px) rotate(-8deg) scale(.9)
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px)
+  }
+}
+
+.phb {
+  position: absolute;
+  right: -8px;
+  bottom: -8px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  display: grid;
+  place-items: center;
+  animation: phpop .3s .3s ease-out both, phbump .35s 1.4s ease-out
+}
+
+.phb .ic {
+  width: 28px;
+  height: 28px
+}
+
+.fin.saved .slipd {
+  animation: flydown 1s .5s ease-in both
+}
+
+@keyframes flydown {
+  0% {
+    opacity: 0;
+    transform: translate(0, -70px)
+  }
+
+  15% {
+    opacity: 1
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(48px, 46px) rotate(8deg) scale(.28)
+  }
+}
+
+@keyframes phpop {
+  from {
+    opacity: 0;
+    transform: scale(.4)
+  }
+}
+
+@keyframes phbump {
+  40% {
+    transform: scale(1.25)
+  }
+}
+
+/* 3. Tinanggap: bumubuo ang check at kumikislap na berde ang card */
+.pc.fresh {
+  animation: spark .9s ease-out
+}
+
+.pc.fresh .sb.sg .ic path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: tick .4s .15s ease-out forwards
+}
+
+@keyframes spark {
+  0% {
+    box-shadow: 0 0 0 0 rgba(47, 107, 43, .6);
+    transform: scale(1)
+  }
+
+  35% {
+    transform: scale(1.025)
+  }
+
+  100% {
+    box-shadow: 0 0 0 16px rgba(47, 107, 43, 0);
+    transform: scale(1)
+  }
+}
+
+@keyframes tick {
+  to {
+    stroke-dashoffset: 0
+  }
+}
+
+/* 4. Pagpuno ng slip: tumitindi ang bawat linya, sumasayaw ang n/5 kapag kumpleto */
+.r:not(.e) .v {
+  padding: 0 3px;
+  background: linear-gradient(var(--sand), var(--sand)) 0 100%/100% 45% no-repeat;
+  animation: hl .55s ease-out both
+}
+
+.rl li:nth-child(2) .v {
+  animation-delay: .08s
+}
+
+.rl li:nth-child(3) .v {
+  animation-delay: .16s
+}
+
+.rl li:nth-child(4) .v {
+  animation-delay: .24s
+}
+
+.rl li:nth-child(5) .v {
+  animation-delay: .32s
+}
+
+.rl li:nth-child(6) .v {
+  animation-delay: .4s
+}
+
+@keyframes hl {
+  from {
+    background-size: 0 45%
+  }
+}
+
+.rope i.d {
+  transform-origin: left;
+  animation: grow .4s ease-out both
+}
+
+.rope i:nth-child(2) {
+  animation-delay: .06s
+}
+
+.rope i:nth-child(3) {
+  animation-delay: .12s
+}
+
+.rope i:nth-child(4) {
+  animation-delay: .18s
+}
+
+.rope i:nth-child(5) {
+  animation-delay: .24s
+}
+
+@keyframes grow {
+  from {
+    transform: scaleX(0)
+  }
+}
+
+.rf .full,
+.dk .dn.full {
+  display: inline-block;
+  color: var(--land);
+  animation: dance 1s ease-in-out both
+}
+
+:root[data-theme="dark"] .rf .full,
+:root[data-theme="dark"] .dk .dn.full {
+  color: #8FD16F
+}
+
+@media(prefers-color-scheme:dark) {
+
+  :root:not([data-theme="light"]) .rf .full,
+  :root:not([data-theme="light"]) .dk .dn.full {
+    color: #8FD16F
+  }
+}
+
+@keyframes dance {
+  15% {
+    transform: rotate(-10deg) scale(1.3)
+  }
+
+  30% {
+    transform: rotate(10deg) scale(1.3)
+  }
+
+  45% {
+    transform: rotate(-8deg) scale(1.25)
+  }
+
+  60% {
+    transform: rotate(8deg) scale(1.25)
+  }
+
+  80% {
+    transform: rotate(0) scale(1.1)
+  }
+}
+
+/* 5. Mic: humihinga kapag naghihintay, may alon kapag nakikinig */
+.go.mic:not(.live) .ic {
+  animation: breathe 2.4s ease-in-out infinite
+}
+
+.go.mic.live {
+  animation: rings 1.4s ease-out infinite
+}
+
+.go.mic.live .ic {
+  animation: mictalk .6s ease-in-out infinite alternate
+}
+
+@keyframes breathe {
+
+  0%,
+  100% {
+    transform: scale(1)
+  }
+
+  50% {
+    transform: scale(1.18)
+  }
+}
+
+@keyframes mictalk {
+  to {
+    transform: scale(1.25)
+  }
+}
+
+@keyframes rings {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--hot) 60%, transparent), 0 0 0 0 color-mix(in srgb, var(--hot) 35%, transparent)
+  }
+
+  100% {
+    box-shadow: 0 0 0 12px transparent, 0 0 0 24px transparent
+  }
+}
+
+/* 6. Sumagot ang provider: dumudulas ang card, kumikislap ang Sagot sa nav */
+.pc.arrive {
+  animation: slidein .45s ease-out
+}
+
+@keyframes slidein {
+  from {
+    opacity: 0;
+    transform: translateX(40px)
+  }
+}
+
+#nav .flash {
+  animation: navflash .7s ease-in-out 2
+}
+
+#nav .flash .ic {
+  transform-origin: 50% 0;
+  animation: ding .7s ease-in-out 2
+}
+
+@keyframes navflash {
+  50% {
+    background: var(--gold)
+  }
+}
+
+@keyframes ding {
+
+  20% {
+    transform: rotate(-16deg)
+  }
+
+  40% {
+    transform: rotate(14deg)
+  }
+
+  60% {
+    transform: rotate(-8deg)
+  }
+
+  80% {
+    transform: rotate(4deg)
+  }
+}
+
+/* Kung naka-reduce motion ang phone: walang galaw, kita pa rin ang lahat */
+@media(prefers-reduced-motion:reduce) {
+
+  .boat,
+  .glow,
+  .wv1,
+  .wv2,
+  .wv3,
+  .palm,
+  .fr,
+  .rice path,
+  .pc.fresh,
+  .pc.arrive,
+  .go.mic,
+  .go.mic .ic,
+  .rope i.d,
+  .r .v,
+  .rf .full,
+  .dk .dn.full,
+  #nav .flash,
+  #nav .flash .ic,
+  .phb,
+  .fin.sent .bigck,
+  .fin.sent h1,
+  .fin.sent .lead,
+  .fin.sent .fine {
+    animation: none !important
+  }
+
+  .fin.sent .bigck .ck {
+    animation: none !important;
+    stroke-dashoffset: 0
+  }
+
+  .pc.fresh .sb.sg .ic path {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0
+  }
+
+  .fin .slipi {
+    display: none
+  }
+}

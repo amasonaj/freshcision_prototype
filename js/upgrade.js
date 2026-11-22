@@ -89,7 +89,7 @@ function ext() {
   const show = role && THEMED.includes(sc);
   st.className = show ? 'on' : '';
   if (show) {
-    const key = role + full;
+    const key = role;
     if (st.dataset.k !== key) {
       st.dataset.k = key;
       st.innerHTML = `<svg viewBox="0 0 400 ${SCENE_H}" preserveAspectRatio="xMidYMax slice" role="img" aria-label="${role === 'fish' ? 'Fishing boat at sea' : 'Rice terraces and nipa hut'}">${sceneFull(role)}</svg>`;

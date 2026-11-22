@@ -13,11 +13,13 @@
 #top .mini { padding: 6px 9px }
 #top span { gap: 6px }
 
-/* Scene band: full width, no chip, no border box */
-#scene { flex: none; display: none; position: relative; height: 112px; margin: 0 0 8px; overflow: hidden; border-bottom: 1.5px solid #9AA5AB }
+/* Scene band (Option C): tall, tucked behind the top bar, wavy bottom edge that blends into the page */
+#top, #hatch { position: relative; z-index: 2 }
+#scene { flex: none; display: none; position: relative; z-index: 1; height: 190px; margin: -64px 0 0; overflow: hidden; pointer-events: none }
 #scene.on { display: block }
-#scene.compact { height: 90px }
+#scene.compact { height: 170px }
 #scene svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block }
+#scene .edge { fill: var(--bg) }
 
 /* Home: tap pills */
 .half .pick { position: absolute; right: 18px; display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: var(--ongold); font-weight: 800; font-size: calc(18px*var(--fs)); padding: 10px 16px; border-radius: 999px; box-shadow: 0 3px 0 rgba(0, 0, 0, .25); white-space: nowrap }

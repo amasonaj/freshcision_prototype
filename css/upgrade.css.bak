@@ -1,0 +1,50 @@
+/* ===== v4: refined tonal-linework theme (paper bg, line icons, wide scene band) ===== */
+
+@media (prefers-color-scheme: light) {
+  .phone[data-role=fish] { --bg: #F6F2E6; --sel: #2E7AA2; --sand: #D6E6EE }
+  .phone[data-role=farm] { --bg: #F6F2E6; --sel: #3F7B2E; --sand: #E0EBCD }
+}
+.phone[data-role=fish] #nav button[aria-current=page] { background: #D6E6EE; box-shadow: inset 0 3px 0 #2E7AA2 }
+.phone[data-role=farm] #nav button[aria-current=page] { background: #E0EBCD; box-shadow: inset 0 3px 0 #3F7B2E }
+.phone[data-role=fish] .rope i.d { background: #2E7AA2 }
+
+/* Compact top bar so the language toggle fits */
+#top .logo { font-size: 22px }
+#top .mini { padding: 6px 9px }
+#top span { gap: 6px }
+
+/* Scene band: full width, no chip, no border box */
+#scene { flex: none; display: none; position: relative; height: 112px; margin: 0 0 8px; overflow: hidden; border-bottom: 1.5px solid #9AA5AB }
+#scene.on { display: block }
+#scene.compact { height: 90px }
+#scene svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block }
+
+/* Home: tap pills */
+.half .pick { position: absolute; right: 18px; display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: var(--ongold); font-weight: 800; font-size: calc(18px*var(--fs)); padding: 10px 16px; border-radius: 999px; box-shadow: 0 3px 0 rgba(0, 0, 0, .25); white-space: nowrap }
+.half.sea .pick { top: 120px }
+.half.land .pick { bottom: 28px }
+.half .pick .ic { position: static; flex: none; width: 20px; height: 20px; inset: auto }
+
+/* Line-drawing icons */
+.ico { display: block; color: var(--ink) }
+.opt[data-k=crop] { flex-direction: column; justify-content: center; gap: 2px; min-height: 120px; text-align: center }
+.opt[data-k=crop] .ico { width: 62px; height: 62px }
+
+.tip { display: flex; gap: 12px; align-items: center; border-left-width: 8px }
+.tip .tic { flex: none; width: 54px; height: 54px; display: grid; place-items: center; background: var(--sand); border-radius: 12px }
+.tip .tic .ico { width: 40px; height: 40px }
+.phone[data-role=fish] .tip { border-left-color: #2E7AA2 }
+
+/* Chat tab */
+.cl { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: var(--cell); border: 2px solid var(--line); border-radius: 12px; padding: 12px; min-height: 72px }
+.cl .pi { flex: none }
+.cl b { display: block; font-size: calc(19px*var(--fs)) }
+.cl small { display: block; color: var(--mute); font-size: calc(15px*var(--fs)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 230px }
+.cl .dot { margin-left: auto; width: 14px; height: 14px; border-radius: 50%; background: var(--hot); flex: none }
+.qr { display: flex; flex-wrap: wrap; gap: 8px }
+.qr .opt { flex: 1 1 45%; min-height: 52px; font-size: calc(16px*var(--fs)); justify-content: center; text-align: center }
+.empty { display: grid; justify-items: center; gap: 8px; text-align: center; padding: 26px 10px; color: var(--mute) }
+.empty .ico { width: 72px; height: 72px }
+.empty b { color: var(--ink); font-size: calc(22px*var(--fs)) }
+
+.pc .opt.chatq { background: none; border: 2px solid var(--ink); box-shadow: none; margin-top: 8px; min-height: 48px }

@@ -22,6 +22,19 @@ const SCENE = {
   }
 };
 
+/* Option C wrapper: sky behind the header, original art pushed down, wavy page-colour edge on top */
+const SCENE_H = 190, SCENE_DY = 44;
+const SKY = { fish: '#E9EFEA', farm: '#EEF0DA' }, BASE = { fish: '#2E7AA2', farm: '#3F7B2E' };
+const EDGE = {
+  /* fish: swell that matches the sea waves; farm: rolling terrace contour */
+  fish: { back: 'M0 160Q33 150 67 160T133 160T200 160T267 160T333 160T400 160V190H0Z', front: 'M0 170Q33 160 67 170T133 170T200 170T267 170T333 170T400 170V190H0Z', accent: '#5B9FBD' },
+  farm: { back: 'M0 158Q70 146 140 156T280 152T400 146V190H0Z', front: 'M0 172Q80 160 160 169T300 165T400 160V190H0Z', accent: '#92BC6E' }
+};
+const sceneFull = role => {
+  const e = EDGE[role];
+  return `<rect width="400" height="${SCENE_H}" fill="${SKY[role]}"/><g transform="translate(0 ${SCENE_DY})">${SCENE[role]()}</g><rect y="${SCENE_DY + 118}" width="400" height="${SCENE_H}" fill="${BASE[role]}"/><path d="${e.back}" fill="${e.accent}"/><path class="edge" d="${e.front}"/>`;
+};
+
 /* ---------- Line icons (48x48, stroke follows text color) ---------- */
 const ICON = i => `<svg class="ico" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${i}</svg>`;
 const CROP_ICO = {
@@ -70,7 +83,7 @@ function ext() {
   const sc = S.scr, role = S.role || '';
   P.dataset.role = role;
 
-  /* Scene band (no chip, no header) */
+  /* Scene band (Option C): tall, sits behind the top bar, wavy bottom edge blends into the page */
   let st = $('#scene');
   if (!st) { st = document.createElement('div'); st.id = 'scene'; $('#hatch').after(st) }
   const show = role && THEMED.includes(sc), full = FULL.includes(sc);
@@ -79,8 +92,9 @@ function ext() {
     const key = role + full;
     if (st.dataset.k !== key) {
       st.dataset.k = key;
-      st.innerHTML = `<svg viewBox="0 0 400 120" preserveAspectRatio="${full ? 'xMidYMid' : 'xMidYMax'} slice" role="img" aria-label="${role === 'fish' ? 'Fishing boat at sea' : 'Rice terraces and nipa hut'}">${SCENE[role]()}</svg>`;
+      st.innerHTML = `<svg viewBox="0 0 400 ${SCENE_H}" preserveAspectRatio="xMidYMax slice" role="img" aria-label="${role === 'fish' ? 'Fishing boat at sea' : 'Rice terraces and nipa hut'}">${sceneFull(role)}</svg>`;
     }
+    st.style.marginTop = -($('#top').offsetHeight + $('#hatch').offsetHeight) + 'px'; /* slide the band up behind the header */
   }
 
   /* Language toggle in the top bar (handler 'lang' already exists) */

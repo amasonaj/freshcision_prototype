@@ -85,7 +85,7 @@ function ext() {
 
   /* Scene band (Option C): tall, sits behind the top bar, wavy bottom edge blends into the page */
   let st = $('#scene');
-  if (!st) { st = document.createElement('div'); st.id = 'scene'; $('#hatch').after(st) }
+  if (!st) { st = document.createElement('div'); st.id = 'scene'; $('#top').after(st); st.after($('#hatch')) } /* order: header, picture, no-signal strip, content */
   const show = role && THEMED.includes(sc);
   st.className = show ? 'on' : '';
   if (show) {
@@ -96,8 +96,9 @@ function ext() {
     }
   }
 
-  /* Language toggle in the top bar (handler 'lang' already exists) */
-  $('#top span').insertAdjacentHTML('afterbegin', `<button class="mini" data-a="lang" aria-label="${T('Switch to English', 'Gawing Filipino')}">${S.tl ? 'EN' : 'FIL'}</button>`);
+  /* Top bar: signal is icon-only, so give it a spoken name. Language lives in Settings (the gear). */
+  const sg = $('#top [data-a=sig]');
+  if (sg) sg.setAttribute('aria-label', S.on ? T('Signal on. Tap to turn off.', 'May signal. Pindutin para patayin.') : T('Signal off. Tap to turn on.', 'Walang signal. Pindutin para buksan.'));
 
   /* 4-tab nav: Request, Replies, Chat, Tips */
   const nv = $('#nav'), wait = S.prov.filter(p => p.s === 'ok').length;

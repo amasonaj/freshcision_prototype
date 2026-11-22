@@ -1,0 +1,95 @@
+/* ===== Palengke receipt look: paper, ink, banca paint, hand-written values ===== */
+/* Fonts are linked from index.html (Big Shoulders Display, Courier Prime, Caveat). Fallbacks keep it working offline. */
+
+/* The phone sets its own palette (data-opt), so the tokens go on .phone itself */
+.phone[data-opt], .phone[data-role] {
+  --bg: #F1E7D0; --ink: #14283A; --mute: #5A5347; --cell: #FBF6EA; --line: #B5A98E;
+  --gold: #F2B632; --ongold: #14283A; --sea: #1C6E9A; --land: #3F7B2E; --hot: #B8321E;
+  --paper: #FBF6EA; --pen: #1F3FA8; --stamp: #B8321E; --shadow: rgba(20, 40, 58, .18);
+  --banig: linear-gradient(135deg, #B8321E 25%, transparent 25%) -6px 0/12px 12px, linear-gradient(225deg, #B8321E 25%, transparent 25%) -6px 0/12px 12px, linear-gradient(315deg, #F2B632 25%, transparent 25%) 0 0/12px 12px, linear-gradient(45deg, #F2B632 25%, transparent 25%) 0 0/12px 12px, #1C6E9A;
+  --zig: linear-gradient(135deg, #FBF6EA 25%, transparent 25%) -8px 0/16px 16px, linear-gradient(225deg, #FBF6EA 25%, transparent 25%) -8px 0/16px 16px;
+}
+.phone[data-opt] { --sand: #E8DDBF; --sel: #1C6E9A }
+.phone[data-role=farm] { --sand: #E0EBCD; --sel: #3F7B2E }
+.phone[data-role=fish] { --sand: #D6E6EE; --sel: #1C6E9A }
+
+/* Type: sign-painter headings, typewriter labels, ballpoint values */
+.phone .hd, .phone h1 { font-family: 'Big Shoulders Display', Impact, 'Arial Narrow', sans-serif; font-stretch: 100%; font-weight: 800; letter-spacing: .01em; line-height: .95 }
+.phone h1, .phone .q { text-transform: uppercase }
+.phone .q { font-size: calc(42px*var(--fs)) }
+#top .logo { font-size: 25px; text-transform: none; white-space: nowrap }
+#top .mini { font-size: 14px; padding: 6px 7px }
+
+/* Header strip on screens that have no scene band */
+.phone:not(.has-scene) #top { position: relative; margin-bottom: 14px }
+.phone:not(.has-scene) #top::after { content: ''; position: absolute; left: 0; right: 0; bottom: -12px; height: 12px; background: var(--banig) }
+
+/* ---- Request slip ---- */
+.phone .slip { background: var(--paper); border: 0; border-radius: 0; padding: 18px 16px 12px; margin-bottom: 8px; filter: drop-shadow(0 3px 0 var(--shadow)); transform: rotate(-.5deg) }
+.phone .slip::before { content: ''; position: absolute; left: 0; right: 0; top: 0; width: auto; height: 10px; border: 0; border-radius: 0; background: var(--banig) }
+.phone .slip::after { content: ''; position: absolute; left: 0; right: 0; top: auto; bottom: -8px; width: auto; height: 8px; border: 0; border-radius: 0; background: var(--zig) }
+.phone .sh { height: 36px; border-bottom: 2px solid var(--ink); margin-bottom: 6px }
+.phone .sh b { font-family: 'Courier Prime', ui-monospace, monospace; font-weight: 700; font-stretch: 100%; font-size: calc(16px*var(--fs)); letter-spacing: .08em; text-transform: uppercase }
+.phone .sh span { font-family: 'Courier Prime', ui-monospace, monospace }
+.phone .r { font-family: 'Courier Prime', ui-monospace, monospace; align-items: baseline }
+.phone .r .k { letter-spacing: .08em }
+.phone .r .d { border-bottom-color: #8C8270 }
+.phone .r .v { font-family: 'Caveat', 'Segoe Script', cursive; font-weight: 700; font-size: calc(28px*var(--fs)); line-height: 1; color: var(--pen); background: none !important; animation: pk-pen .45s ease-out both }
+.phone .r.e .v { color: var(--stamp); font-size: calc(24px*var(--fs)); font-weight: 600 }
+@keyframes pk-pen { from { opacity: 0; transform: translateY(4px) rotate(-2deg) } }
+.phone .rf { border-top: 2px solid var(--ink) }
+.phone .wm { opacity: .05 }
+
+/* ---- Buttons ---- */
+.phone .go { border: 2px solid var(--ink); border-radius: 10px; box-shadow: 0 3px 0 var(--ink) }
+.phone .go:disabled { box-shadow: none }
+.phone .opt { border-radius: 10px }
+.phone .pc .opt { border: 2px solid var(--ink); box-shadow: 0 3px 0 var(--ink) }
+.phone .pc .opt.chatq { box-shadow: none; background: none }
+
+/* ---- Product choices as hang-tags (use real photos later: put an <img> inside) ---- */
+.phone .g2 { filter: drop-shadow(0 3px 0 var(--shadow)) }
+.phone .opt[data-k=crop] { position: relative; border: 0; border-top: 6px solid var(--sea); border-radius: 0; background: var(--paper); clip-path: polygon(0 14px, 14px 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%) }
+.phone .g2 .opt[data-k=crop]:nth-child(2) { border-top-color: var(--gold) }
+.phone .g2 .opt[data-k=crop]:nth-child(3) { border-top-color: var(--hot) }
+.phone .g2 .opt[data-k=crop]:nth-child(4) { border-top-color: var(--ink) }
+.phone .opt[data-k=crop]::after { content: ''; position: absolute; top: 8px; right: 12px; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); box-shadow: inset 0 0 0 2px var(--ink) }
+.phone .opt[data-k=crop] { font-family: 'Big Shoulders Display', Impact, sans-serif; font-weight: 800; font-size: calc(28px*var(--fs)); text-transform: uppercase; letter-spacing: .01em }
+
+/* ---- Replies as receipt stubs ---- */
+.phone .pc, .phone .pc[data-s=ok], .phone .pc[data-s=acc], .phone .pc.done { position: relative; background: var(--paper); border: 0; border-radius: 0; padding: 14px 14px 12px; margin-bottom: 14px; filter: drop-shadow(0 3px 0 var(--shadow)) }
+.phone .pc::after { content: ''; position: absolute; left: 0; right: 0; bottom: -8px; height: 8px; background: var(--zig) }
+.phone .pc:nth-of-type(odd) { transform: rotate(-.4deg) }
+.phone .pc:nth-of-type(even) { transform: rotate(.35deg) }
+.phone .pt { padding-bottom: 10px; border-bottom: 2px dashed #8C8270 }
+.phone .pt b { font-family: 'Big Shoulders Display', Impact, sans-serif; font-weight: 800; font-size: calc(30px*var(--fs)); text-transform: uppercase; line-height: 1 }
+.phone .pt small { font-family: 'Courier Prime', ui-monospace, monospace; font-size: calc(14px*var(--fs)); color: var(--mute) }
+.phone .pi { background: var(--sand); box-shadow: inset 0 0 0 2px var(--ink) }
+.phone .pb { position: relative }
+.phone .pb::before, .phone .pb::after { content: ''; position: absolute; top: -19px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg) }
+.phone .pb::before { left: -22px }
+.phone .pb::after { right: -22px }
+.phone .arr { font-family: 'Courier Prime', ui-monospace, monospace; font-weight: 700; font-size: calc(18px*var(--fs)); text-transform: uppercase; letter-spacing: .04em }
+.phone .pc[data-s=acc]::before { content: 'TINANGGAP'; position: absolute; right: 12px; top: 84px; z-index: 1; transform: rotate(-10deg); border: 4px solid var(--land); border-radius: 8px; padding: 0 10px; color: var(--land); font: 800 calc(26px*var(--fs))/1.1 'Big Shoulders Display', Impact, sans-serif; letter-spacing: .02em; mix-blend-mode: multiply; animation: pk-stamp .35s ease-out both }
+:root:not([lang="fil"]) .phone .pc[data-s=acc]::before { content: 'ACCEPTED' }
+
+/* ---- Sent / saved: filled slip + stamp ---- */
+.phone .fin .ckwrap.pl { width: min(300px, 100%); height: auto; animation: pk-drop .5s ease-out both }
+.phone .fin .ckwrap.pl .slipi, .phone .fin .ckwrap.pl .bigck, .phone .fin .ckwrap.pl .phb { display: none }
+.pk-rc { position: relative; text-align: left; background: var(--paper); padding: 18px 14px 10px; filter: drop-shadow(0 3px 0 var(--shadow)); transform: rotate(.7deg) }
+.pk-rc::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 10px; background: var(--banig) }
+.pk-rc::after { content: ''; position: absolute; left: 0; right: 0; bottom: -8px; height: 8px; background: var(--zig) }
+.pk-rc .h { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--ink); padding: 4px 0 4px; margin-bottom: 4px; font: 700 14px 'Courier Prime', monospace; letter-spacing: .08em; text-transform: uppercase }
+.pk-rc .h span { font-weight: 400; color: var(--mute); letter-spacing: 0 }
+.pk-rc .l { display: flex; align-items: baseline; gap: 6px; min-height: 30px }
+.pk-rc .l i { font: 700 12px 'Courier Prime', monospace; font-style: normal; letter-spacing: .08em; text-transform: uppercase; width: 72px; flex: none }
+.pk-rc .l u { flex: 1; border-bottom: 2px dotted #8C8270; text-decoration: none; transform: translateY(-4px) }
+.pk-rc .l b { font: 700 24px/1 'Caveat', cursive; color: var(--pen) }
+.pk-stamp { position: absolute; right: -4px; bottom: 14px; transform: rotate(-12deg); border: 5px solid var(--stamp); border-radius: 10px; padding: 2px 12px 0; color: var(--stamp); font: 800 34px/1.05 'Big Shoulders Display', Impact, sans-serif; letter-spacing: .02em; text-transform: uppercase; background: rgba(251, 246, 234, .55); mix-blend-mode: multiply; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px var(--stamp); animation: pk-stamp .35s .9s ease-out both }
+.pk-stamp.amber { color: #8A5A00; border-color: #8A5A00; box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 4px #8A5A00 }
+@keyframes pk-stamp { 0% { opacity: 0; transform: rotate(-12deg) scale(2.2) } 100% { opacity: .95 } }
+@keyframes pk-drop { from { opacity: 0; transform: translateY(-14px) } }
+
+/* ---- Nav ---- */
+.phone #nav { background: var(--paper); border-top: 2px solid var(--ink) }
+.phone[data-role] #nav button[aria-current=page] { background: var(--gold); box-shadow: none }

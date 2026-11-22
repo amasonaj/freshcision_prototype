@@ -1,40 +1,39 @@
-/* ===== v3: role theme, scene strip, picture tiles, chat tab ===== */
+/* ===== v4: refined tonal-linework theme (paper bg, line icons, wide scene band) ===== */
 
-/* Role colors (light mode only, dark mode keeps its own palette) */
 @media (prefers-color-scheme: light) {
-  .phone[data-role=fish] { --bg: #E8F3F8; --sel: #14609A; --sand: #CFE6F1 }
-  .phone[data-role=farm] { --bg: #F0F6E6; --sel: #3F7D2C; --sand: #DCEBC4 }
+  .phone[data-role=fish] { --bg: #F6F2E6; --sel: #2E7AA2; --sand: #D6E6EE }
+  .phone[data-role=farm] { --bg: #F6F2E6; --sel: #3F7B2E; --sand: #E0EBCD }
 }
-.phone[data-role=fish] #nav button[aria-current=page] { background: #CFE6F1; box-shadow: inset 0 4px 0 var(--sea) }
-.phone[data-role=farm] #nav button[aria-current=page] { background: #DCEBC4; box-shadow: inset 0 4px 0 var(--land) }
-.phone[data-role=fish] .rope i.d { background: var(--sea) }
+.phone[data-role=fish] #nav button[aria-current=page] { background: #D6E6EE; box-shadow: inset 0 3px 0 #2E7AA2 }
+.phone[data-role=farm] #nav button[aria-current=page] { background: #E0EBCD; box-shadow: inset 0 3px 0 #3F7B2E }
+.phone[data-role=fish] .rope i.d { background: #2E7AA2 }
 
 /* Compact top bar so the language toggle fits */
 #top .logo { font-size: 22px }
 #top .mini { padding: 6px 9px }
 #top span { gap: 6px }
 
-/* Scene strip under the top bar */
-#scene { flex: none; display: none; position: relative; height: 62px; margin: 0 16px 4px; border: 2px solid var(--ink); border-radius: 14px; overflow: hidden }
+/* Scene band: full width, no chip, no border box */
+#scene { flex: none; display: none; position: relative; height: 112px; margin: 0 0 8px; overflow: hidden; border-bottom: 1.5px solid #9AA5AB }
 #scene.on { display: block }
-#scene svg { position: absolute; inset: 0; width: 100%; height: 100% }
-#scene .chip { position: absolute; left: 8px; bottom: 6px; display: flex; align-items: center; gap: 6px; background: rgba(8, 32, 45, .78); color: #fff; font-weight: 800; font-size: calc(15px*var(--fs)); padding: 4px 10px 4px 8px; border-radius: 999px }
-#scene .chip .em { font-size: 18px }
+#scene.compact { height: 90px }
+#scene svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block }
 
-/* Home: obvious "tap me" pill on each half */
-.half .pick { position: absolute; right: 18px; display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: var(--ongold); font-weight: 800; font-size: calc(18px*var(--fs)); padding: 10px 16px; border-radius: 999px; box-shadow: 0 3px 0 rgba(0, 0, 0, .25) }
+/* Home: tap pills */
+.half .pick { position: absolute; right: 18px; display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: var(--ongold); font-weight: 800; font-size: calc(18px*var(--fs)); padding: 10px 16px; border-radius: 999px; box-shadow: 0 3px 0 rgba(0, 0, 0, .25); white-space: nowrap }
 .half.sea .pick { top: 120px }
 .half.land .pick { bottom: 28px }
-.half .pick .ic { width: 20px; height: 20px }
+.half .pick .ic { position: static; flex: none; width: 20px; height: 20px; inset: auto }
 
-/* Picture tiles for product choice */
-.opt[data-k=crop] { flex-direction: column; justify-content: center; gap: 4px; min-height: 112px; text-align: center }
-.opt[data-k=crop] .em { font-size: 44px; line-height: 1 }
+/* Line-drawing icons */
+.ico { display: block; color: var(--ink) }
+.opt[data-k=crop] { flex-direction: column; justify-content: center; gap: 2px; min-height: 120px; text-align: center }
+.opt[data-k=crop] .ico { width: 62px; height: 62px }
 
-/* Tips with emoji badges */
 .tip { display: flex; gap: 12px; align-items: center; border-left-width: 8px }
-.tip .em { flex: none; font-size: 34px; width: 52px; height: 52px; display: grid; place-items: center; background: var(--sand); border-radius: 14px }
-.phone[data-role=fish] .tip { border-left-color: var(--sea) }
+.tip .tic { flex: none; width: 54px; height: 54px; display: grid; place-items: center; background: var(--sand); border-radius: 12px }
+.tip .tic .ico { width: 40px; height: 40px }
+.phone[data-role=fish] .tip { border-left-color: #2E7AA2 }
 
 /* Chat tab */
 .cl { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: var(--cell); border: 2px solid var(--line); border-radius: 12px; padding: 12px; min-height: 72px }
@@ -44,13 +43,8 @@
 .cl .dot { margin-left: auto; width: 14px; height: 14px; border-radius: 50%; background: var(--hot); flex: none }
 .qr { display: flex; flex-wrap: wrap; gap: 8px }
 .qr .opt { flex: 1 1 45%; min-height: 52px; font-size: calc(16px*var(--fs)); justify-content: center; text-align: center }
-.empty { display: grid; justify-items: center; gap: 8px; text-align: center; padding: 30px 10px; color: var(--mute) }
-.empty .em { font-size: 64px; line-height: 1 }
+.empty { display: grid; justify-items: center; gap: 8px; text-align: center; padding: 26px 10px; color: var(--mute) }
+.empty .ico { width: 72px; height: 72px }
 .empty b { color: var(--ink); font-size: calc(22px*var(--fs)) }
 
-/* Ask-the-provider button on a reply card */
 .pc .opt.chatq { background: none; border: 2px solid var(--ink); box-shadow: none; margin-top: 8px; min-height: 48px }
-
-/* Fix: arrow inside the home pill must sit inline, not absolute */
-.half .pick .ic { position: static; flex: none; width: 20px; height: 20px; inset: auto }
-.half .pick { white-space: nowrap }

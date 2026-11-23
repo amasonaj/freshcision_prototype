@@ -13,6 +13,8 @@
 </head>
 
 <body>
+<div id="splash" role="presentation"><img src="assets/logo-stack.png?v=2" alt="FRESHCISION"></div>
+<script>try{if(sessionStorage.getItem("fc_splash")){document.getElementById("splash").remove()}else{sessionStorage.setItem("fc_splash","1");setTimeout(function(){var s=document.getElementById("splash");if(s){s.classList.add("out");setTimeout(function(){s.remove()},400)}},1500)}}catch(e){setTimeout(function(){var s=document.getElementById("splash");if(s)s.remove()},1500)}</script>
   <div class="page">
     <div class="phone" data-opt="d">
       <div id="top"></div>

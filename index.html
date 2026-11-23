@@ -5,6 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>FRESHCISION</title>
+<link rel="icon" type="image/png" href="assets/favicon-64.png?v=2">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
+<meta name="theme-color" content="#FBF6EA">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap">
   <link rel="stylesheet" href="css/styles.css">
@@ -17,6 +20,8 @@
 </head>
 
 <body>
+<div id="splash" role="presentation"><img src="assets/logo-stack.png?v=2" alt="FRESHCISION"></div>
+<script>try{if(sessionStorage.getItem("fc_splash")){document.getElementById("splash").remove()}else{sessionStorage.setItem("fc_splash","1");setTimeout(function(){var s=document.getElementById("splash");if(s){s.classList.add("out");setTimeout(function(){s.remove()},400)}},1500)}}catch(e){setTimeout(function(){var s=document.getElementById("splash");if(s)s.remove()},1500)}</script>
   <div class="page">
     <div class="phone" data-opt="d">
       <div id="top"></div>

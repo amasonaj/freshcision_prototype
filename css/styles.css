@@ -239,7 +239,9 @@ h1 {
 }
 
 .half .hd {
-  font-size: calc(92px*var(--fs))
+  font-size: calc(52px*var(--fs));
+  max-width: 100%;
+  overflow-wrap: anywhere
 }
 
 .half small {

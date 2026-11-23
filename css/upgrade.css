@@ -24,7 +24,11 @@
 /* Home: tap pills */
 .half .pick { position: absolute; right: 18px; display: inline-flex; align-items: center; gap: 6px; background: var(--gold); color: var(--ongold); font-weight: 800; font-size: calc(18px*var(--fs)); padding: 10px 16px; border-radius: 999px; box-shadow: 0 3px 0 rgba(0, 0, 0, .25); white-space: nowrap }
 .half.sea .pick { top: 120px }
-.half.land .pick { bottom: 28px }
+.half.land .pick {
+  top: auto;
+  bottom: 110px;
+  transform: none
+}
 .half .pick .ic { position: static; flex: none; width: 20px; height: 20px; inset: auto }
 
 /* Line-drawing icons */

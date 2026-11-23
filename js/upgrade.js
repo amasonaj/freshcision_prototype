@@ -69,7 +69,7 @@ const EMPTY = {
 
 /* Chat: provider answers are canned so the prototype works offline */
 const CH = { open: null, msgs: {}, seen: {} };
-const PNAME = n => (S.tl ? NL[n] : { Ice: 'Ice', Transport: 'Truck', Buyer: 'Buyer', Processing: 'Processing' }[n]) + ' · ' + PV[n][0];
+const PNAME = n => SL[n] + ' · ' + PV[n][0];
 const seedMsg = n => T('Yes, we can help. We arrive ' + PV[n][2] + '. Price: ' + PV[n][1] + '.', 'Kaya po namin. Darating kami ' + (PV[n][2] === 'Tomorrow' ? 'bukas' : PV[n][2]) + '. Presyo: ' + PV[n][1] + '.');
 const QS = [
   [T('How much in total?', 'Magkano lahat?'), n => T('About ' + PV[n][1] + '. Pay on arrival.', 'Nasa ' + PV[n][1] + ' po. Bayad pagdating.')],
